@@ -1,22 +1,22 @@
 # MILO
 
-MILO A Lightweight Perceptual Quality Metric for Image and Latent-Space Optimization
+MILO: A Lightweight Perceptual Quality Metric for Image and Latent-Space Optimization
 
-To run the MILO metric, simply use
+To run the MILO metric, simply use:
 
 ```bash
-python MILO_runner.py --ref imagesref.png --dist imagesdist.png
+python MILO_runner.py --ref images/ref.png --dist images/dist.png
 ```
 
-Dependencies
+Dependencies:
 
-python==3.8.12 br
-pytorch-cuda==1.13 br
-numpy==1.22.0br
-torchvision==0.14.0br
-pillow==8.4.0br
+python==3.8.12 <br>
+pytorch-cuda==1.13 <br>
+numpy==1.22.0<br>
+torchvision==0.14.0<br>
+pillow==8.4.0<br>
 
-[![GitHub Repo](httpsimg.shields.iobadgeGitHub-Repo-blacklogo=github)](httpsgithub.comugurcogalan06Enhanced-IQM)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-black?logo=github)](https://github.com/ugurcogalan06/Enhanced-IQM/)
 For more details, please refer to our previous paper.
 
 
