@@ -1,11 +1,10 @@
-import torch
 import numpy as np
 import os
 from PIL import Image
 import torch
 from torchvision import transforms
 import math
-# import matplotlib.pyplot as plt
+
 
 class ScalerNetwork(torch.nn.Module):
     def __init__(self, chn_mid=32, use_sigmoid=True):
@@ -155,20 +154,13 @@ if __name__ == '__main__':
 
     model_milo = MILO().to(device)
     score = model_milo(dist, ref)
-    print('Quality Score: ' + str(score))
+    score_cpu = score.detach().cpu().item()
+    print('Quality Score: ' + str(score_cpu))
     
     MILO_err, MILO_mask = model_milo.MILO_map(dist, ref)
     
     MILO_err = map_visualization(MILO_err)
 
-    # plt.imshow(dist.squeeze().permute([1,2,0]).cpu().numpy())
-    # plt.show()
-    # plt.imshow(ref.squeeze().permute([1,2,0]).cpu().numpy())
-    # plt.show()
-    # plt.imshow(MAE_err[:,:,3::-1])
-    # plt.show()
-    # plt.imshow(E_MAE_err[:,:,3::-1])
-    # plt.show()
     MILO_mask = MILO_mask.detach().squeeze().cpu().numpy()
     
     os.makedirs(args.save_dir, exist_ok=True)
