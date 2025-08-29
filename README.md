@@ -65,7 +65,10 @@ If you use MILO in your research, please cite:
   title     = {MILO: A Lightweight Perceptual Quality Metric for Image and Latent-Space Optimization},
   journal   = {ACM Transactions on Graphics (TOG)},
   year      = {2025},
-  publisher = {ACM}
+  volume    = {44},
+  number    = {6},
+  publisher = {ACM},
+  doi       = {10.1145/3763340}
 }
 ```
 
