@@ -40,8 +40,8 @@ python MILO_runner.py --ref images/ref.png --dist images/dist.png
 * `--dist`: Path to the distorted/test image 
 
 The output score indicates the perceptual difference: 
-* **Higher scores** → more perceptible distortions in the test image (compared to the reference)
-* **Score of 0** → perceptually identical images
+* **Score of 0** → perceptually identical images (no visible distortions)
+* **Score of 1** → highest possible disruption; extreme perceptible distortions in the test image (compared to the reference)
 
 Installation 
 ------------ 

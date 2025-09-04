@@ -103,15 +103,14 @@ class MILO(torch.nn.Module):
 
         mask = self.mask_generator(x, y)
 
-        score = ((mask * torch.abs(x - y))).mean() 
-        
+        score = ((mask * torch.abs(x - y))).mean()
+
         return score 
 
     def MILO_map(self, y, x):
 
         C, H, W = x.shape[0:3]
 
-        
         masks = self.mask_generator(x, y)
 
         return self.scaler_network((masks*torch.abs(x - y)).mean([1], keepdim=True)) - self.scaler_network(torch.tensor(0.0).cuda().reshape(1,1,1,1)), masks[0]
@@ -128,9 +127,9 @@ def sigmoid_scaling(input):
 def map_visualization(input):
     
     input= input.detach().squeeze().cpu().numpy()
-    input = CHWtoHWC(index2color(np.round(input * 255.0), get_magma_map()))
+    output = CHWtoHWC(index2color(np.round(input * 255.0), get_magma_map()))
 
-    return input
+    return output
 
     
 if __name__ == '__main__':
@@ -139,8 +138,8 @@ if __name__ == '__main__':
     from data import *
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ref', type=str, default='images/ref.BMP')
-    parser.add_argument('--dist', type=str, default='images/dist.BMP')
+    parser.add_argument('--ref', type=str, default='images/ref.png')
+    parser.add_argument('--dist', type=str, default='images/dist.png')
     parser.add_argument('--save_dir', type=str, default='save_map')
 
     args = parser.parse_args()
@@ -151,12 +150,15 @@ if __name__ == '__main__':
     dist = prepare_image(Image.open(args.dist).convert("RGB")).to(device)
 
     model_milo = MILO().to(device)
-    score = model_milo(dist, ref)
-    score_cpu = score.detach().cpu().item()
-    print('Quality Score: ' + str(score_cpu))
+    raw_error = model_milo(dist, ref)
+    raw_error_cpu = raw_error.detach().cpu().item()
+    print('Raw Error: ' + str(raw_error_cpu))
     
     MILO_err, MILO_mask = model_milo.MILO_map(dist, ref)
-    
+
+    score = MILO_err.detach().squeeze().cpu().numpy().mean()
+    print('Quality Score: ' + str(score))
+
     MILO_err = map_visualization(MILO_err)
 
     MILO_mask = MILO_mask.detach().squeeze().cpu().numpy()
