@@ -43,6 +43,14 @@ The output score indicates the perceptual difference:
 * **Score of 0** → perceptually identical images (no visible distortions)
 * **Score of 1** → highest possible disruption; extreme perceptible distortions in the test image (compared to the reference)
 
+To run the MILO latent metric:
+
+```bash
+python MILO_runner_latent.py --ref latents/ref.npy --dist latents/dist.npy
+```
+
+The .npy files contain the latent space representation of the reference and distorted images.
+
 Installation 
 ------------ 
 

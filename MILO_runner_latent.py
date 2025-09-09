@@ -129,6 +129,9 @@ if __name__ == '__main__':
     ref = prepare_latent(np.load(args.ref)).to(device) 
     dist = prepare_latent(np.load(args.dist)).to(device) 
     
+    print(ref.min(), ref.max(), ref.mean())
+    print(dist.min(), dist.max(), dist.mean())
+    
     model_milo = MILO().to(device)
     score = model_milo(dist, ref)
     score_cpu = score.detach().cpu().item()
